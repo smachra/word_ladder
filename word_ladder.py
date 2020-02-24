@@ -1,7 +1,7 @@
 #!/bin/python3
 
 
-def word_ladder(firs_word, final_word, dictionary_file='words5.dict'):
+def word_ladder(first_word, final_word, dictionary_file='words5.dict'):
     '''
     Returns a list satisfying the following properties:
 
