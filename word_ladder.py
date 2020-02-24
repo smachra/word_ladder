@@ -34,7 +34,6 @@ def word_ladder(first_word, final_word, dictionary_file='words5.dict'):
     fatStack = []
     fatStack.append(first_word)
 
-    Que = deque()
     Que.appendleft(fatStack)
     
     filewords = open(dictionary_file).readlines()
@@ -50,7 +49,7 @@ def word_ladder(first_word, final_word, dictionary_file='words5.dict'):
        wordCollection.append(x.strip("\n"))    #removes any trailing (\n) chars
 
     #lengthOfMyQue = len(myQue)
-    while len(myQue)!= 0:
+    while len(Que)!= 0:
         edit = Que.pop()
         
         for x in wordCollection: # for words in the dictionary
