@@ -60,7 +60,7 @@ def word_ladder(first_word, final_word, dictionary_file='words5.dict'):
             if _adjacent(x,edit[-1]):
                 stackCopy = copy.deepcopy(edit)
                 stackCopy.append(x)
-                if x == end_word:
+                if x == final_word:
                     #lengthOfStackCopy = len(stackCopy)
                     for y in range(1,len(stackCopy) - 2):
                         if _adjacent(edit[y - 1],edit[ y + 1]):
