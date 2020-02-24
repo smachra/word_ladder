@@ -1,4 +1,6 @@
 #!/bin/python3
+import copy
+from collections import deque
 
 
 def word_ladder(first_word, final_word, dictionary_file='words5.dict'):
@@ -33,7 +35,8 @@ def word_ladder(first_word, final_word, dictionary_file='words5.dict'):
 
     fatStack = []
     fatStack.append(first_word)
-
+    
+    Que = deque()
     Que.appendleft(fatStack)
     
     filewords = open(dictionary_file).readlines()
