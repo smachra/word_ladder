@@ -28,7 +28,7 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     Whenever it is impossible to generate a word ladder between the two words,
     the function returns `None`.
     '''
-   if first_word == final_word:
+    if first_word == final_word:
         return [first_word]
 
     fatStack = []
