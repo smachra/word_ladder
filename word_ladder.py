@@ -3,7 +3,7 @@ import copy
 from collections import deque
 
 
-def word_ladder(first_word, final_word, dictionary_file='words5.dict'):
+def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     '''
     Returns a list satisfying the following properties:
 
@@ -30,11 +30,11 @@ def word_ladder(first_word, final_word, dictionary_file='words5.dict'):
     Whenever it is impossible to generate a word ladder between the two words,
     the function returns `None`.
     '''
-    if first_word == final_word:
-        return [first_word]
+    if start_word == end_word:
+        return [start_word]
 
     fatStack = []
-    fatStack.append(first_word)
+    fatStack.append(start_word)
     
     Que = deque()
     Que.appendleft(fatStack)
@@ -43,8 +43,8 @@ def word_ladder(first_word, final_word, dictionary_file='words5.dict'):
     wordCollection = []
    
     
-    if first_word == "doggo" and end_word == "homan":
-        return word_ladder(final_word, first_word, dictionary_file = "words5.dict")
+    if start_word == "doggo" and end_word == "homan":
+        return word_ladder(start_word, end_word, dictionary_file = "words5.dict")
         
 
     
@@ -60,7 +60,7 @@ def word_ladder(first_word, final_word, dictionary_file='words5.dict'):
             if _adjacent(x,edit[-1]):
                 stackCopy = copy.deepcopy(edit)
                 stackCopy.append(x)
-                if x == final_word:
+                if x == end_word:
                     #lengthOfStackCopy = len(stackCopy)
                     for y in range(1,len(stackCopy) - 2):
                         if _adjacent(edit[y - 1],edit[ y + 1]):
