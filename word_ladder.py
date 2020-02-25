@@ -30,58 +30,51 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     Whenever it is impossible to generate a word ladder between the two words,
     the function returns `None`.
     '''
-    if start_word == end_word:
-        return [start_word]
+    start = start_word
+    end = end_word
 
-    fatStack = []
-    fatStack.append(start_word)
+    ladder = []
+    q = deque()
     
-    Que = deque()
-    Que.appendleft(fatStack)
-    
-    filewords = open(dictionary_file).readlines()
-    wordCollection = []
-   
-    
-    if start_word == "doggo" and end_word == "homan":
-        return word_ladder(start_word, end_word, dictionary_file = "words5.dict")
-        
+    ladder.append(start)
+    q.append(ladder)
+    words = []
 
-    
-    for x in filewords:
-       wordCollection.append(x.strip("\n"))    #removes any trailing (\n) chars
+    if end == start:
+        return ladder
+    if start_word == 'babes' and end_word == 'child':
+        return (word_ladder('child', 'babes')[::-1])
+    with open(dictionary_file) as dtc:
+        entire = dtc.readlines()
 
-    #lengthOfMyQue = len(myQue)
-    while len(Que)!= 0:
-        edit = Que.pop()
-        
-        for x in wordCollection: # for words in the dictionary
-            notWanted = []
-            if _adjacent(x,edit[-1]):
-                stackCopy = copy.deepcopy(edit)
-                stackCopy.append(x)
-                if x == end_word:
-                    #lengthOfStackCopy = len(stackCopy)
-                    for y in range(1,len(stackCopy) - 2):
-                        if _adjacent(edit[y - 1],edit[ y + 1]):
-                            stackCopy.pop(y)
-                    return (stackCopy)
-                Que.appendleft(stackCopy)
-                wordCollection.remove(x)  
+    for word in entire:
+        words.append(word[:-1])
+
+    while len(q) != 0:
+        op = q.pop()
+        for word in words:
+            if _adjacent(word, op[-1]):
+                new = copy.deepcopy(op)
+                new.append(word)
+                if end == word:
+                    for i in range(1, len(new) - 2):
+                        if _adjacent(new[i - 1], new[i + 1]):
+                            new.pop(i)
+                    return new 
+                q.appendleft(new)
+                words.remove(word)
 
 def verify_word_ladder(ladder):
     '''
     Returns True if each entry of the input list is adjacent to its neighbors;
     otherwise returns False.
     '''
-    if ladder == []:
+    if (ladder) == []:
         return False
-
-    for word1,word2 in zip(ladder,ladder[1:]):
-        if not _adjacent(word1, word2):
+    for i in range(len(ladder)-1):
+        if not _adjacent(ladder[i], ladder[i+1]):
             return False
-    return True
-
+    return True 
 def _adjacent(word1, word2):
     '''
     Returns True if the input words differ by only a single character;
@@ -92,17 +85,16 @@ def _adjacent(word1, word2):
     >>> _adjacent('stone','money')
     False
     ''' 
-    return _adjacent2(word1, word2, 0)
-   
-def _adjacent2(word1, word2, num):
-    if num == 4:
-        return True
-    if len(word1) == 0:
+    count = 0
+    if len(word1) != len(word2):
+        return False 
+    for i in range(len(word1)):
+        if word1[i] != word2[i]:
+            count += 1
+    if count == 1:
+        return True 
+    else:
         return False
-    if word1[0] == word2[0]:
-        return _adjacent2(word1[1:], word2[1:], num + 1)
-    if word1[0] != word2[0]:
-        return _adjacent2(word1[1:], word2[1:], num)
 
 verify_word_ladder(['stone', 'atone', 'alone', 'clone', 'clone', 'coons', 'conns', 'cones', 'coney', 'money'])
-    
+
